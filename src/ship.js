@@ -9,7 +9,7 @@ export default class Ship {
   }
 
   isSunk() {
-    if(this.hits === this.length) return true;
+    if (this.hits === this.length) return true;
     return false;
   }
 }

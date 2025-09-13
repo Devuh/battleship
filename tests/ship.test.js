@@ -1,7 +1,7 @@
-import Ship from '../src/ship.js';
+import Ship from "../src/ship.js";
 
-describe('Ship', () => {
-  it('Hit 3 times with length 3 and sunk', () => {
+describe("Ship", () => {
+  it("Hit 3 times with length 3 and sunk", () => {
     const ship = new Ship(3);
 
     expect(ship.isSunk()).toBeFalsy();
@@ -18,7 +18,7 @@ describe('Ship', () => {
     expect(ship.isSunk()).toBeTruthy();
   });
 
-  it('Hit 3 times with length 4 and not sunk', () => {
+  it("Hit 3 times with length 4 and not sunk", () => {
     const ship = new Ship(4);
 
     expect(ship.isSunk()).toBeFalsy();

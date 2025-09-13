@@ -1,10 +1,10 @@
-import Ship from './ship.js';
+import Ship from "./ship.js";
 
 export default class Gameboard {
   constructor() {
     this.board = new Array(10);
-    for(let i = 0; i < 10; i++) {
-      this.board[i] = new Array(10).fill(' ');
+    for (let i = 0; i < 10; i++) {
+      this.board[i] = new Array(10).fill(" ");
       this.ships = [];
     }
   }
@@ -13,23 +13,26 @@ export default class Gameboard {
     let longestCoord;
 
     // Check that the last ship coord will not go out of bounds
-    if(direction === 'right') {
+    if (direction === "right") {
       longestCoord = x + ship.length - 1;
     } else {
       longestCoord = y + ship.length - 1;
     }
 
-    if(longestCoord > 9) throw new Error('Out of bounds');
+    if (longestCoord > 9) throw new Error("Out of bounds");
 
-    if(x > 9 || x < 0 || y > 9 || y < 0) throw new Error('Out of bounds');
+    if (x > 9 || x < 0 || y > 9 || y < 0) throw new Error("Out of bounds");
   }
 
   #isOccupied(x, y, direction, ship) {
-    for(let i = 0; i < ship.length; i++) {
-      if(typeof this.board[y][x] === 'object' || typeof this.board[y][x] === 'array') {
+    for (let i = 0; i < ship.length; i++) {
+      if (
+        typeof this.board[y][x] === "object" ||
+        typeof this.board[y][x] === "array"
+      ) {
         throw new Error("Space occupied");
       }
-      direction === 'right' ? x++ : y++;
+      direction === "right" ? x++ : y++;
     }
   }
 
@@ -38,9 +41,9 @@ export default class Gameboard {
     this.#isOccupied(x, y, direction, ship);
 
     // x and y are inverse in a matrix
-    for(let i = 0; i < ship.length; i++) {
+    for (let i = 0; i < ship.length; i++) {
       this.board[y][x] = ship;
-      direction === 'right' ? x++ : y++;
+      direction === "right" ? x++ : y++;
     }
 
     this.ships.push(ship);
@@ -48,21 +51,21 @@ export default class Gameboard {
 
   receiveAttack(x, y) {
     // x and y are inverse in a matrix
-    if(this.board[y][x] === ' ') {
-      this.board[y][x] = 'o';
-    } else if(this.board[y][x] === 'o' || this.board[y][x] === 'x') {
-      throw new Error('Already guessed');
+    if (this.board[y][x] === " ") {
+      this.board[y][x] = "o";
+    } else if (this.board[y][x] === "o" || this.board[y][x] === "x") {
+      throw new Error("Already guessed");
     } else {
       this.board[y][x].hit();
-      this.board[y][x] = 'x';
+      this.board[y][x] = "x";
     }
   }
 
   isAllShipsSunk() {
     let allSunk = true;
 
-    for(let i = 0; i < this.ships.length; i++) {
-      if(this.ships[i].length !== this.ships[i].hits) allSunk = false;
+    for (let i = 0; i < this.ships.length; i++) {
+      if (this.ships[i].length !== this.ships[i].hits) allSunk = false;
     }
 
     return allSunk;
