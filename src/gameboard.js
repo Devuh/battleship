@@ -25,7 +25,9 @@ export default class Gameboard {
 
   #isOccupied(x, y, direction, ship) {
     for(let i = 0; i < ship.length; i++) {
-      if(typeof this.board[y][x] === 'object') throw new Error("Space occupied");
+      if(typeof this.board[y][x] === 'object' || typeof this.board[y][x] === 'array') {
+        throw new Error("Space occupied");
+      }
       direction === 'right' ? x++ : y++;
     }
   }
@@ -38,6 +40,18 @@ export default class Gameboard {
     for(let i = 0; i < ship.length; i++) {
       this.board[y][x] = ship;
       direction === 'right' ? x++ : y++;
+    }
+  }
+
+  receiveAttack(x, y) {
+    // x and y are inverse in a matrix
+    if(this.board[y][x] === ' ') {
+      this.board[y][x] = 'o';
+    } else if(this.board[y][x] === 'o' || this.board[y][x] === 'x') {
+      throw new Error('Already guessed');
+    } else {
+      this.board[y][x].hit();
+      this.board[y][x] = 'x';
     }
   }
 }

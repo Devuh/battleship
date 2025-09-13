@@ -149,4 +149,167 @@ describe('Gameboard', () => {
       expect(() => grid.placeShip(4,5,'right',ship2)).toThrow(Error);
     });
   });
+
+  describe('Receive Attack', () => {
+    it('Receive attack on empty grid at (3,5)', () => {
+      let grid = new Gameboard();
+      grid.receiveAttack(3,5);
+      expect(grid.board).toStrictEqual([[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ','o',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ]
+      ]);
+    });
+
+    it('Receive attack on empty grid at (3,5) twice', () => {
+      let grid = new Gameboard();
+      grid.receiveAttack(3,5);
+      expect(() => grid.receiveAttack(3,5)).toThrow(Error);
+    });
+
+    it('Receive attack on ocuppied space (3,5)', () => {
+      let grid = new Gameboard();
+      let ship = new Ship(3);
+      grid.placeShip(3,5,'right',ship);
+      grid.receiveAttack(3,5);
+      expect(ship.hits).toBe(1);
+      expect(grid.board).toStrictEqual([[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ','x',ship,ship,' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ]
+      ]);
+    });
+
+    it('Receive attack on ocuppied space (3,5) twice', () => {
+      let grid = new Gameboard();
+      let ship = new Ship(3);
+      grid.placeShip(3,5,'right',ship);
+      grid.receiveAttack(3,5);
+      expect(ship.hits).toBe(1);
+      expect(grid.board).toStrictEqual([[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ','x',ship,ship,' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ]
+      ]);
+      expect(() => grid.receiveAttack(3,5)).toThrow(Error);
+    });
+
+    it('Receive 3 attacks on ship of length 3', () => {
+      let grid = new Gameboard();
+      let ship = new Ship(3);
+      grid.placeShip(3,5,'right',ship);
+      grid.receiveAttack(3,5);
+      grid.receiveAttack(4,5);
+      grid.receiveAttack(5,5);
+      expect(ship.hits).toBe(3);
+      expect(grid.board).toStrictEqual([[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ','x','x','x',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ]
+      ]);
+      expect(() => grid.receiveAttack(3,5)).toThrow(Error);
+    });
+
+    it('Receive 2 attacks on empty spaces then 2 on occupied spaces', () => {
+      let grid = new Gameboard();
+      let ship = new Ship(3);
+      grid.placeShip(3,5,'right',ship);
+      grid.receiveAttack(0,0);
+      grid.receiveAttack(4,3);
+      grid.receiveAttack(3,5);
+      grid.receiveAttack(5,5);
+      expect(ship.hits).toBe(2);
+      expect(grid.board).toStrictEqual([[
+        'o',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ','o',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ','x',ship,'x',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ],[
+        ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+      ]
+      ]);
+      expect(() => grid.receiveAttack(3,5)).toThrow(Error);
+    });
+  });
 });
