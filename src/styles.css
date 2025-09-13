@@ -2,6 +2,9 @@
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   text-shadow: 1px 1px 1px black;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
 
 body {
@@ -11,9 +14,37 @@ body {
   align-items: center;
 }
 
+h1 {
+  margin: 20px;
+  margin-bottom: 40px;
+}
+
 #game {
   width: auto;
   height: 500px;
   display: flex;
-  gap: 250px;
+  gap: 25vw;
+}
+
+.grid {
+  display: flex;
+  width: 250px;
+}
+
+.column {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.square {
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  cursor: pointer;
+}
+
+h3 {
+  margin-top: 10px;
 }
