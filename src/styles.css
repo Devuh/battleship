@@ -17,9 +17,3 @@ body {
   display: flex;
   gap: 250px;
 }
-
-#player {
-  width: 500px;
-  height: 500px;
-  background-color: white;
-}
