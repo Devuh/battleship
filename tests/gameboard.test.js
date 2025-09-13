@@ -249,6 +249,7 @@ describe('Gameboard', () => {
       let grid = new Gameboard();
       let ship = new Ship(3);
       grid.placeShip(3,5,'right',ship);
+      expect(grid.isAllShipsSunk()).toBeFalsy();
       grid.receiveAttack(3,5);
       grid.receiveAttack(4,5);
       grid.receiveAttack(5,5);
@@ -276,6 +277,7 @@ describe('Gameboard', () => {
       ]
       ]);
       expect(() => grid.receiveAttack(3,5)).toThrow(Error);
+      expect(grid.isAllShipsSunk()).toBeTruthy();
     });
 
     it('Receive 2 attacks on empty spaces then 2 on occupied spaces', () => {
@@ -310,6 +312,7 @@ describe('Gameboard', () => {
       ]
       ]);
       expect(() => grid.receiveAttack(3,5)).toThrow(Error);
+      expect(grid.isAllShipsSunk()).toBeFalsy();
     });
   });
 });

@@ -5,6 +5,7 @@ export default class Gameboard {
     this.board = new Array(10);
     for(let i = 0; i < 10; i++) {
       this.board[i] = new Array(10).fill(' ');
+      this.ships = [];
     }
   }
 
@@ -41,6 +42,8 @@ export default class Gameboard {
       this.board[y][x] = ship;
       direction === 'right' ? x++ : y++;
     }
+
+    this.ships.push(ship);
   }
 
   receiveAttack(x, y) {
@@ -53,5 +56,15 @@ export default class Gameboard {
       this.board[y][x].hit();
       this.board[y][x] = 'x';
     }
+  }
+
+  isAllShipsSunk() {
+    let allSunk = true;
+
+    for(let i = 0; i < this.ships.length; i++) {
+      if(this.ships[i].length !== this.ships[i].hits) allSunk = false;
+    }
+
+    return allSunk;
   }
 }
