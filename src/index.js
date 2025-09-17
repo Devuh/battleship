@@ -1,7 +1,6 @@
 import "./styles.css";
 import GameController from "./gameController.js";
 import Ship from "./ship.js";
-import Gameboard from "./gameboard.js";
 
 class DOM {
   static domGrids = document.querySelectorAll('.grid');
@@ -24,7 +23,7 @@ class DOM {
     player.board.createShip(x,y,direction,ship);
     for (let i = 0; i < ship.length; i++) {
       let square = this.#getSquare(x,y,player);
-      square.classList.add('ship');
+      if(player.type === 'human') square.classList.add('ship');
       direction === "right" ? x++ : y++;
     }
   }
@@ -70,8 +69,25 @@ DOM.placeShip(0,0,'down',player2Ship1,player2);
 DOM.placeShip(3,4,'right',player2Ship2,player2);
 DOM.placeShip(6,9,'right',player2Ship3,player2);
 
-DOM.placeHit(4,4,player2);
-DOM.placeHit(2,4,player2);
+// DOM.placeHit(4,4,player2);
+// DOM.placeHit(2,4,player2);
 
-console.log(player1.board);
-console.log(player2.board);
+// console.log(player1.board);
+// console.log(player2.board);
+
+// Event listeners
+
+// let player1 = GameController.player1;
+// let player2 = GameController.player2;
+
+let game = document.querySelector('#game');
+
+game.addEventListener('click', (event) => {
+  if(event.target.classList.contains('square') && event.target.id.slice(-1) === "2") {
+    let id = event.target.id;
+    let x = id.slice(0,1);
+    let y = id.slice(2,3);
+    let player = id.slice(4);
+    DOM.placeHit(x,y,GameController.players[player-1]);
+  }
+});
