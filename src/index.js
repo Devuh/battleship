@@ -5,11 +5,11 @@ import Ship from "./ship.js";
 class DOM {
   static domGrids = document.querySelectorAll('.grid');
 
-  // #setSquare(x,y,player) {
-  //   if(typeof player.board[x,y] === 'object') {
+  #setSquare(x,y,player) {
+    if(typeof player.board[x,y] === 'object') {
 
-  //   }
-  // }
+    }
+  }
 
   static drawGrids() {
     this.domGrids.forEach((grid) => {
@@ -57,13 +57,13 @@ let player2Ship1 = new Ship(3);
 let player2Ship2 = new Ship(4);
 let player2Ship3 = new Ship(2);
 
-player1.board.placeShip(0,0,'right',player1Ship1);
-player1.board.placeShip(4,3,'down',player1Ship2);
-player1.board.placeShip(9,6,'down',player1Ship3);
+player1.board.createShip(0,0,'right',player1Ship1);
+player1.board.createShip(4,3,'down',player1Ship2);
+player1.board.createShip(9,6,'down',player1Ship3);
 
-player2.board.placeShip(0,0,'down',player2Ship1);
-player2.board.placeShip(3,4,'right',player2Ship2);
-player2.board.placeShip(6,9,'right',player2Ship3);
+player2.board.createShip(0,0,'down',player2Ship1);
+player2.board.createShip(3,4,'right',player2Ship2);
+player2.board.createShip(6,9,'right',player2Ship3);
 
 console.log(player1.board);
 console.log(player2.board);

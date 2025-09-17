@@ -34,7 +34,7 @@ export default class Gameboard {
     }
   }
 
-  placeShip(x, y, direction, ship) {
+  createShip(x, y, direction, ship) {
     this.#isOutOfBounds(x, y, direction, ship);
     this.#isOccupied(x, y, direction, ship);
 
