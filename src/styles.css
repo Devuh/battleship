@@ -48,3 +48,7 @@ h1 {
 h3 {
   margin-top: 10px;
 }
+
+.ship {
+  background-color: rgb(160, 160, 160);
+}
