@@ -56,7 +56,7 @@ h3 {
 }
 
 .hit::after {
-  content: 'x';
+  content: "x";
   color: red;
   font-size: 30px;
   position: relative;
@@ -65,7 +65,7 @@ h3 {
 }
 
 .miss::after {
-  content: 'o';
+  content: "o";
   font-size: 30px;
   position: relative;
   bottom: 15%;
