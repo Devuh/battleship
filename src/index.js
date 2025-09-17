@@ -4,11 +4,21 @@ import Ship from "./ship.js";
 
 class DOM {
   static domGrids = document.querySelectorAll(".grid");
+  static playerTurn = true;
 
   static #getSquare(x, y, player) {
     return document.getElementById(
       `${x}-${y}-${GameController.players.indexOf(player) + 1}`,
     );
+  }
+
+  static #runComputerTurn() {
+    this.playerTurn = false;
+    let position = GameController.getComputerTurn();
+    setTimeout(() => {
+      this.placeHit(position[0],position[1],GameController.player1);
+      this.playerTurn = true;
+    },1000);
   }
 
   static placeHit(x, y, player) {
@@ -18,6 +28,10 @@ class DOM {
       square.classList.add("miss");
     } else {
       square.classList.add("hit");
+    }
+
+    if (player.type === 'computer') {
+      this.#runComputerTurn();
     }
   }
 
@@ -71,23 +85,13 @@ DOM.placeShip(0, 0, "down", player2Ship1, player2);
 DOM.placeShip(3, 4, "right", player2Ship2, player2);
 DOM.placeShip(6, 9, "right", player2Ship3, player2);
 
-// DOM.placeHit(4,4,player2);
-// DOM.placeHit(2,4,player2);
-
-// console.log(player1.board);
-// console.log(player2.board);
-
-// Event listeners
-
-// let player1 = GameController.player1;
-// let player2 = GameController.player2;
-
 let game = document.querySelector("#game");
 
 game.addEventListener("click", (event) => {
   if (
     event.target.classList.contains("square") &&
-    event.target.id.slice(-1) === "2"
+    event.target.id.slice(-1) === "2" &&
+    DOM.playerTurn === true
   ) {
     let id = event.target.id;
     let x = id.slice(0, 1);
