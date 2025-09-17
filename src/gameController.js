@@ -1,8 +1,8 @@
 import Player from './player.js';
 
-class GameController {
-  constructor(playerType = 'computer') {
-    this.player1 = new Player();
-    this.player2 = new Player(playerType);
-  }
+export default class GameController {
+  static player1 = new Player();
+  static player2 = new Player('computer');
+
+  static players = [this.player1, this.player2];
 }
