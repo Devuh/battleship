@@ -17,7 +17,12 @@ class DOM {
     let position = GameController.getComputerTurn();
     setTimeout(() => {
       this.placeHit(position[0],position[1],GameController.player1);
-      this.playerTurn = true;
+      let square = this.#getSquare(position[0],position[1],GameController.player1);
+      if(square.classList.contains("hit")) {
+        this.#runComputerTurn();
+      } else {
+        this.playerTurn = true;
+      }
     },1000);
   }
 
@@ -30,7 +35,7 @@ class DOM {
       square.classList.add("hit");
     }
 
-    if (player.type === 'computer') {
+    if (player.type === "computer" && !square.classList.contains("hit")) {
       this.#runComputerTurn();
     }
   }
@@ -72,14 +77,20 @@ let player2 = GameController.player2;
 let player1Ship1 = new Ship(3);
 let player1Ship2 = new Ship(4);
 let player1Ship3 = new Ship(2);
+let player1Ship4 = new Ship(3);
+let player1Ship5 = new Ship(4);
+let player1Ship6 = new Ship(2);
 
 let player2Ship1 = new Ship(3);
 let player2Ship2 = new Ship(4);
 let player2Ship3 = new Ship(2);
 
-DOM.placeShip(0, 0, "right", player1Ship1, player1);
-DOM.placeShip(4, 3, "down", player1Ship2, player1);
-DOM.placeShip(9, 6, "down", player1Ship3, player1);
+DOM.placeShip(4, 0, "right", player1Ship1, player1);
+DOM.placeShip(6, 3, "down", player1Ship2, player1);
+DOM.placeShip(2, 6, "down", player1Ship3, player1);
+DOM.placeShip(0, 0, "right", player1Ship4, player1);
+DOM.placeShip(4, 3, "down", player1Ship5, player1);
+DOM.placeShip(9, 6, "down", player1Ship6, player1);
 
 DOM.placeShip(0, 0, "down", player2Ship1, player2);
 DOM.placeShip(3, 4, "right", player2Ship2, player2);
