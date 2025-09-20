@@ -3,8 +3,8 @@ export default class Gameboard {
     this.board = new Array(10);
     for (let i = 0; i < 10; i++) {
       this.board[i] = new Array(10).fill(" ");
-      this.ships = [];
     }
+    this.ships = [];
   }
 
   #isOutOfBounds(x, y, direction, ship) {
