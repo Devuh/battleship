@@ -9,11 +9,19 @@ export default class GameController {
   static players = [this.player1, this.player2];
 
   static #listPossibleMoves() {
+    this.#computerPossibleMoves = [];
     for(let i = 0; i < 10; i++) {
       for(let j = 0; j < 10; j++) {
         this.#computerPossibleMoves.push([i,j]);
       }
     }
+  }
+
+  static resetPlayers() {
+    this.player1 = new Player();
+    this.player2 = new Player("computer");
+    this.#listPossibleMoves();
+    this.players = [this.player1, this.player2];
   }
 
   static getComputerTurn() {

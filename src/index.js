@@ -37,6 +37,15 @@ class DOM {
     dialog.showModal();
   }
 
+  static resetGame() {
+    const dialog = document.querySelector("dialog");
+    GameController.resetPlayers();
+    dialog.close();
+    this.drawGrids();
+    DOM.placeShip(2,3,"right",new Ship(3),GameController.player1);
+    DOM.placeShip(2,3,"right",new Ship(3),GameController.player2);
+  }
+
   static placeHit(x, y, player) {
     let square = this.#getSquare(x, y, player);
     player.board.receiveAttack(x, y);
@@ -64,6 +73,8 @@ class DOM {
 
   static drawGrids() {
     this.domGrids.forEach((grid, player) => {
+      grid.innerHTML = "";
+
       player++;
       for (let i = 0; i < 10; i++) {
         const column = document.createElement("div");
@@ -90,9 +101,6 @@ let player2 = GameController.player2;
 let player1Ship1 = new Ship(3);
 let player1Ship2 = new Ship(4);
 let player1Ship3 = new Ship(2);
-let player1Ship4 = new Ship(3);
-let player1Ship5 = new Ship(4);
-let player1Ship6 = new Ship(2);
 
 let player2Ship1 = new Ship(3);
 let player2Ship2 = new Ship(4);
@@ -101,15 +109,15 @@ let player2Ship3 = new Ship(2);
 DOM.placeShip(4, 0, "right", player1Ship1, player1);
 DOM.placeShip(6, 3, "down", player1Ship2, player1);
 DOM.placeShip(2, 6, "down", player1Ship3, player1);
-DOM.placeShip(0, 0, "right", player1Ship4, player1);
-DOM.placeShip(4, 3, "down", player1Ship5, player1);
-DOM.placeShip(9, 6, "down", player1Ship6, player1);
 
 DOM.placeShip(0, 0, "down", player2Ship1, player2);
 DOM.placeShip(3, 4, "right", player2Ship2, player2);
 DOM.placeShip(6, 9, "right", player2Ship3, player2);
 
 let game = document.querySelector("#game");
+
+const dialog = document.querySelector("dialog");
+const newGame = dialog.querySelector("button");
 
 game.addEventListener("click", (event) => {
   if (
@@ -124,3 +132,5 @@ game.addEventListener("click", (event) => {
     DOM.placeHit(x, y, GameController.players[player - 1]);
   }
 });
+
+newGame.addEventListener("click", () => DOM.resetGame());
