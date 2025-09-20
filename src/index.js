@@ -26,6 +26,17 @@ class DOM {
     },1000);
   }
 
+  static #endGame() {
+    const dialog = document.querySelector("dialog");
+    let gameOverText = document.querySelector("#game-over");
+    if(GameController.player2.board.isAllShipsSunk()) {
+      gameOverText.textContent = "You win!";
+    } else {
+      gameOverText.textContent = "You lose.";
+    }
+    dialog.showModal();
+  }
+
   static placeHit(x, y, player) {
     let square = this.#getSquare(x, y, player);
     player.board.receiveAttack(x, y);
@@ -35,7 +46,9 @@ class DOM {
       square.classList.add("hit");
     }
 
-    if (player.type === "computer" && !square.classList.contains("hit")) {
+    if(player.board.isAllShipsSunk()) {
+      this.#endGame();
+    } else if(player.type === "computer" && !square.classList.contains("hit")) {
       this.#runComputerTurn();
     }
   }

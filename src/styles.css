@@ -16,14 +16,14 @@ h1 {
   margin: 20px;
   margin-bottom: 40px;
   color: white;
-  text-shadow: 1px 1px 1px black;
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
 }
 
 #game {
   width: auto;
   height: 500px;
   display: flex;
-  gap: 25vw;
+  gap: 35vw;
 }
 
 .grid {
@@ -70,4 +70,40 @@ h3 {
   position: relative;
   bottom: 15%;
   left: 20%;
+}
+
+dialog {
+  margin: auto;
+  margin-top: 10vh;
+  width: 300px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: rgb(243, 243, 243);
+}
+
+dialog form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+dialog h2 {
+  font-size: 30px;
+  text-align: center;
+}
+
+dialog button {
+  margin-top: auto;
+  font-size: 20px;
+  border-radius: 5px;
+  width: 100px;
+  outline: none;
+  border: 2px solid rgb(168, 168, 168);
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.25);
 }
