@@ -2,9 +2,19 @@ import "./styles.css";
 import GameController from "./gameController.js";
 import Ship from "./ship.js";
 
+/*
+5 ships total
+Length: | Quantity:
+5       | 1
+4       | 2
+3       | 1
+2       | 1
+*/
+
 class DOM {
   static domGrids = document.querySelectorAll(".grid");
   static playerTurn = true;
+  static minShipQty = 5;
 
   static #getSquare(x, y, player) {
     return document.getElementById(
@@ -47,6 +57,8 @@ class DOM {
   }
 
   static placeHit(x, y, player) {
+    if (player.board.ships.length < this.minShipQty) throw new Error("Player must have a complete board");
+
     let square = this.#getSquare(x, y, player);
     player.board.receiveAttack(x, y);
     if (player.board.board[y][x] === "o") {
