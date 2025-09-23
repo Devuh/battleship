@@ -26,20 +26,24 @@ class DOM {
     this.playerTurn = false;
     let position = GameController.getComputerTurn();
     setTimeout(() => {
-      this.placeHit(position[0],position[1],GameController.player1);
-      let square = this.#getSquare(position[0],position[1],GameController.player1);
-      if(square.classList.contains("hit")) {
+      this.placeHit(position[0], position[1], GameController.player1);
+      let square = this.#getSquare(
+        position[0],
+        position[1],
+        GameController.player1,
+      );
+      if (square.classList.contains("hit")) {
         this.#runComputerTurn();
       } else {
         this.playerTurn = true;
       }
-    },1000);
+    }, 1000);
   }
 
   static #endGame() {
     const dialog = document.querySelector("dialog");
     let gameOverText = document.querySelector("#game-over");
-    if(GameController.player2.board.isAllShipsSunk()) {
+    if (GameController.player2.board.isAllShipsSunk()) {
       gameOverText.textContent = "You win!";
     } else {
       gameOverText.textContent = "You lose.";
@@ -52,12 +56,13 @@ class DOM {
     GameController.resetPlayers();
     dialog.close();
     this.drawGrids();
-    DOM.placeShip(2,3,"right",new Ship(3),GameController.player1);
-    DOM.placeShip(2,3,"right",new Ship(3),GameController.player2);
+    DOM.placeShip(2, 3, "right", new Ship(3), GameController.player1);
+    DOM.placeShip(2, 3, "right", new Ship(3), GameController.player2);
   }
 
   static placeHit(x, y, player) {
-    if (player.board.ships.length < this.minShipQty) throw new Error("Player must have a complete board");
+    if (player.board.ships.length < this.minShipQty)
+      throw new Error("Player must have a complete board");
 
     let square = this.#getSquare(x, y, player);
     player.board.receiveAttack(x, y);
@@ -67,9 +72,12 @@ class DOM {
       square.classList.add("hit");
     }
 
-    if(player.board.isAllShipsSunk()) {
+    if (player.board.isAllShipsSunk()) {
       this.#endGame();
-    } else if(player.type === "computer" && !square.classList.contains("hit")) {
+    } else if (
+      player.type === "computer" &&
+      !square.classList.contains("hit")
+    ) {
       this.#runComputerTurn();
     }
   }
