@@ -118,21 +118,17 @@ DOM.drawGrids();
 let player1 = GameController.player1;
 let player2 = GameController.player2;
 
-let player1Ship1 = new Ship(3);
-let player1Ship2 = new Ship(4);
-let player1Ship3 = new Ship(2);
+DOM.placeShip(4, 0, "right", new Ship(3), player1);
+DOM.placeShip(6, 3, "down", new Ship(4), player1);
+DOM.placeShip(2, 6, "down", new Ship(2), player1);
+DOM.placeShip(4, 8, "right", new Ship(4), player1);
+DOM.placeShip(0, 3, "right", new Ship(5), player1);
 
-let player2Ship1 = new Ship(3);
-let player2Ship2 = new Ship(4);
-let player2Ship3 = new Ship(2);
-
-DOM.placeShip(4, 0, "right", player1Ship1, player1);
-DOM.placeShip(6, 3, "down", player1Ship2, player1);
-DOM.placeShip(2, 6, "down", player1Ship3, player1);
-
-DOM.placeShip(0, 0, "down", player2Ship1, player2);
-DOM.placeShip(3, 4, "right", player2Ship2, player2);
-DOM.placeShip(6, 9, "right", player2Ship3, player2);
+DOM.placeShip(0, 0, "down", new Ship(3), player2);
+DOM.placeShip(3, 4, "right", new Ship(4), player2);
+DOM.placeShip(6, 9, "right", new Ship(2), player2);
+DOM.placeShip(8, 4, "down", new Ship(4), player2);
+DOM.placeShip(1, 0, "down", new Ship(5), player2);
 
 let game = document.querySelector("#game");
 
