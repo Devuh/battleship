@@ -24,9 +24,7 @@ export default class Gameboard {
 
   #isOccupied(x, y, direction, ship) {
     for (let i = 0; i < ship.length; i++) {
-      if (
-        typeof this.board[y][x] === "object"
-      ) {
+      if (typeof this.board[y][x] === "object") {
         throw new Error("Space occupied");
       }
       direction === "right" ? x++ : y++;
@@ -50,19 +48,20 @@ export default class Gameboard {
     let possiblePlaces = [];
     let direction = Math.floor(Math.random() * 2) === 0 ? "right" : "down";
 
-    for(let x = 0; x <= 9; x++) {
-      for(let y = 0; y <= 9; y++) {
+    for (let x = 0; x <= 9; x++) {
+      for (let y = 0; y <= 9; y++) {
         try {
-          this.#isOutOfBounds(x,y,direction,ship);
-          this.#isOccupied(x,y,direction,ship);
-          possiblePlaces.push([x,y]);
+          this.#isOutOfBounds(x, y, direction, ship);
+          this.#isOccupied(x, y, direction, ship);
+          possiblePlaces.push([x, y]);
         } catch {
           continue;
         }
       }
     }
 
-    let randomCoord = possiblePlaces[Math.floor(Math.random() * possiblePlaces.length)];
+    let randomCoord =
+      possiblePlaces[Math.floor(Math.random() * possiblePlaces.length)];
     return [...randomCoord, direction];
   }
 

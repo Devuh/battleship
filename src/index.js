@@ -61,7 +61,7 @@ class DOM {
   }
 
   static randomizeShips(player) {
-    for(let i = 0; i < this.shipLengths.length; i++) {
+    for (let i = 0; i < this.shipLengths.length; i++) {
       let ship = new Ship(this.shipLengths[i]);
       let coord = player.board.getRandomShipCoord(ship);
       this.placeShip(coord[0], coord[1], coord[2], ship, player);
