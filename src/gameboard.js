@@ -24,8 +24,20 @@ export default class Gameboard {
 
   #isOccupied(x, y, direction, ship) {
     for (let i = 0; i < ship.length; i++) {
-      if (typeof this.board[y][x] === "object") {
-        throw new Error("Space occupied");
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          let ny = dy + y;
+          let nx = dx + x;
+          if (
+            ny >= 0 &&
+            ny <= 9 &&
+            nx >= 0 &&
+            nx <= 9 &&
+            typeof this.board[ny][nx] === "object"
+          ) {
+            throw new Error("Space occupied");
+          }
+        }
       }
       direction === "right" ? x++ : y++;
     }
