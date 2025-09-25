@@ -58,6 +58,8 @@ class DOM {
     this.drawGrids();
     this.randomizeShips(GameController.player1);
     this.randomizeShips(GameController.player2);
+    const button = document.querySelector("#random-ships");
+    button.textContent = "Randomize Ships?";
   }
 
   static randomizeShips(player) {
@@ -88,6 +90,9 @@ class DOM {
     ) {
       this.#runComputerTurn();
     }
+
+    const button = document.querySelector("#random-ships");
+    button.textContent = "Start New Game?";
   }
 
   static placeShip(x, y, direction, ship, player) {
