@@ -14,7 +14,7 @@ Length: | Quantity:
 class DOM {
   static domGrids = document.querySelectorAll(".grid");
   static playerTurn = true;
-  static minShipQty = 5;
+  static shipLengths = [5, 4, 4, 3, 2];
 
   static #getSquare(x, y, player) {
     return document.getElementById(
@@ -56,12 +56,20 @@ class DOM {
     GameController.resetPlayers();
     dialog.close();
     this.drawGrids();
-    DOM.placeShip(2, 3, "right", new Ship(3), GameController.player1);
-    DOM.placeShip(2, 3, "right", new Ship(3), GameController.player2);
+    this.randomizeShips(GameController.player1);
+    this.randomizeShips(GameController.player2);
+  }
+
+  static randomizeShips(player) {
+    for(let i = 0; i < this.shipLengths.length; i++) {
+      let ship = new Ship(this.shipLengths[i]);
+      let coord = player.board.getRandomShipCoord(ship);
+      this.placeShip(coord[0], coord[1], coord[2], ship, player);
+    }
   }
 
   static placeHit(x, y, player) {
-    if (player.board.ships.length < this.minShipQty)
+    if (player.board.ships.length < this.shipLengths.length)
       throw new Error("Player must have a complete board");
 
     let square = this.#getSquare(x, y, player);
@@ -118,22 +126,23 @@ DOM.drawGrids();
 let player1 = GameController.player1;
 let player2 = GameController.player2;
 
-DOM.placeShip(4, 0, "right", new Ship(3), player1);
-DOM.placeShip(6, 3, "down", new Ship(4), player1);
-DOM.placeShip(2, 6, "down", new Ship(2), player1);
-DOM.placeShip(4, 8, "right", new Ship(4), player1);
-DOM.placeShip(0, 3, "right", new Ship(5), player1);
+// DOM.placeShip(4, 0, "right", new Ship(3), player1);
+// DOM.placeShip(6, 3, "down", new Ship(4), player1);
+// DOM.placeShip(2, 6, "down", new Ship(2), player1);
+// DOM.placeShip(4, 8, "right", new Ship(4), player1);
+// DOM.placeShip(0, 3, "right", new Ship(5), player1);
 
-DOM.placeShip(0, 0, "down", new Ship(3), player2);
-DOM.placeShip(3, 4, "right", new Ship(4), player2);
-DOM.placeShip(6, 9, "right", new Ship(2), player2);
-DOM.placeShip(8, 4, "down", new Ship(4), player2);
-DOM.placeShip(1, 0, "down", new Ship(5), player2);
+// DOM.placeShip(0, 0, "down", new Ship(3), player2);
+// DOM.placeShip(3, 4, "right", new Ship(4), player2);
+// DOM.placeShip(6, 9, "right", new Ship(2), player2);
+// DOM.placeShip(8, 4, "down", new Ship(4), player2);
+// DOM.placeShip(1, 0, "down", new Ship(5), player2);
 
 let game = document.querySelector("#game");
 
 const dialog = document.querySelector("dialog");
 const newGame = dialog.querySelector("button");
+const randomShips = document.querySelector("#random-ships");
 
 game.addEventListener("click", (event) => {
   if (
@@ -150,3 +159,8 @@ game.addEventListener("click", (event) => {
 });
 
 newGame.addEventListener("click", () => DOM.resetGame());
+
+randomShips.addEventListener("click", () => DOM.resetGame(player1));
+
+DOM.randomizeShips(player1);
+DOM.randomizeShips(player2);

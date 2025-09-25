@@ -25,8 +25,7 @@ export default class Gameboard {
   #isOccupied(x, y, direction, ship) {
     for (let i = 0; i < ship.length; i++) {
       if (
-        typeof this.board[y][x] === "object" ||
-        typeof this.board[y][x] === "array"
+        typeof this.board[y][x] === "object"
       ) {
         throw new Error("Space occupied");
       }
@@ -45,6 +44,26 @@ export default class Gameboard {
     }
 
     this.ships.push(ship);
+  }
+
+  getRandomShipCoord(ship) {
+    let possiblePlaces = [];
+    let direction = Math.floor(Math.random() * 2) === 0 ? "right" : "down";
+
+    for(let x = 0; x <= 9; x++) {
+      for(let y = 0; y <= 9; y++) {
+        try {
+          this.#isOutOfBounds(x,y,direction,ship);
+          this.#isOccupied(x,y,direction,ship);
+          possiblePlaces.push([x,y]);
+        } catch {
+          continue;
+        }
+      }
+    }
+
+    let randomCoord = possiblePlaces[Math.floor(Math.random() * possiblePlaces.length)];
+    return [...randomCoord, direction];
   }
 
   receiveAttack(x, y) {

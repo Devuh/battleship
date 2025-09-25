@@ -95,13 +95,18 @@ dialog h2 {
   text-align: center;
 }
 
-dialog button {
+button {
   margin-top: auto;
   font-size: 20px;
   border-radius: 5px;
   width: 100px;
   outline: none;
   border: 2px solid rgb(168, 168, 168);
+  transition: background-color 100ms linear;
+}
+
+button:hover {
+  background-color: lightgray;
 }
 
 dialog::backdrop {
@@ -114,4 +119,9 @@ dialog::backdrop {
 
 .square:hover {
   background-color: rgb(209, 209, 209);
+}
+
+#player-one button {
+  margin-top: 10px;
+  font-size: 15px;
 }
